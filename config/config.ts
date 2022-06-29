@@ -3,7 +3,7 @@ import routes from './routes';
 
 export default defineConfig({
   hash: true,
-  // ssr: {},
+  ssr: {},
   devtool: 'eval',
   // outputPath: 'dist/zh-CN',
   // publicPath: '/zh-CN/',
