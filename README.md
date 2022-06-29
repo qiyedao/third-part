@@ -1,5 +1,5 @@
 # umi project
-飞书授权登录
+飞书扫码授权登录
 ## Getting Started
 
 Install dependencies,
