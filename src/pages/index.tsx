@@ -14,7 +14,10 @@ export default function IndexPage() {
   return (
     <div>
       <h1 className={styles.title}>Page index</h1>
-      <iframe src="http://192.168.3.73:8000/iframe" />
+      <iframe
+        id="frame1"
+        src="http://127.0.0.1:8000/iframe?redirectUri=http://192.168.3.73:8000/"
+      />
       <button
         onClick={() => {
           history.push('/detail' + window.location.search);
