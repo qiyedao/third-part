@@ -6,6 +6,14 @@ export default function IndexPage() {
     if (!localStorage.userInfo) {
       window.location.href = '/login';
     }
+    tt.getSystemInfo({
+      success(res) {
+        console.log(JSON.stringify(res));
+      },
+      fail(res) {
+        console.log(`getSystemInfo fail: ${JSON.stringify(res)}`);
+      },
+    });
   }, []);
   return (
     <div>
