@@ -5,19 +5,16 @@ export default function IndexPage() {
   useEffect(() => {
     if (!localStorage.userInfo) {
       window.location.href = '/login';
+    } else {
+      window.addEventListener('message', (event) => {
+        console.log('message', event);
+      });
     }
-    tt.getSystemInfo({
-      success(res) {
-        console.log(JSON.stringify(res));
-      },
-      fail(res) {
-        console.log(`getSystemInfo fail: ${JSON.stringify(res)}`);
-      },
-    });
   }, []);
   return (
     <div>
       <h1 className={styles.title}>Page index</h1>
+      <iframe src="http://192.168.3.73:8000/iframe" />
       <button
         onClick={() => {
           history.push('/detail' + window.location.search);
