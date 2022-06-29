@@ -47,15 +47,7 @@ export default function IndexPage() {
 
   return (
     <div>
-      <h1 className={'title'}>Page index</h1>
       <div id="qrcode"></div>
-      <button
-        onClick={() => {
-          history.push('/detail' + window.location.search);
-        }}
-      >
-        push
-      </button>
     </div>
   );
 }
