@@ -20,7 +20,7 @@ export default defineConfig({
     immer: false,
     hmr: true,
   },
-  // antd: {},
+  antd: {},
   // ignoreMomentLocale: true,
   // locale: {
   //   // default zh-CN

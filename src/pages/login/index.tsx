@@ -1,35 +1,38 @@
 import { useEffect } from 'react';
 import { history } from 'umi';
 import styles from './index.less';
+import { Spin } from 'antd';
 export default function IndexPage() {
   useEffect(() => {
-    if (!window.location.search) {
-      window.location.href =
-        'https://open.feishu.cn/open-apis/authen/v1/user_auth_page_beta?app_id=cli_a2cfb4be7e7fd00d&redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Flogin&state=RANDOMSTATE';
-    } else {
-      let search = window.location.search.substring(1);
-      let arr = search.split('&');
-      let obj = {};
-      for (let i = 0; i < arr.length; i++) {
-        let temp = arr[i].split('=');
-        obj[temp[0]] = temp[1];
-      }
-      console.log(obj, 'obj');
-
-      localStorage.userInfo = obj.code;
-      window.location.href = '/';
+    if (window.h5sdk) {
+      let timer;
+      window.h5sdk.ready(() => {
+        // ready方法不需要每次都调用
+        tt.requestAuthCode({
+          appId: 'cli_a2cfb4be7e7fd00d',
+          success: (info) => {
+            console.info(info.code);
+            localStorage.userInfo = info.code;
+            history.push('/');
+          },
+          fail: (error) => {
+            console.error(error);
+          },
+        });
+      });
     }
   }, []);
   return (
     <div>
-      <h1 className={styles.title}>Page index</h1>
-      <button
-        onClick={() => {
-          history.push('/detail' + window.location.search);
-        }}
-      >
-        push
-      </button>
+      {window.h5sdk ? (
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <Spin size="large" />
+        </div>
+      ) : (
+        <div style={{ textAlign: 'center' }}>
+          <h2>请在飞书客户端打开</h2>
+        </div>
+      )}
     </div>
   );
 }
