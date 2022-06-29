@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { history } from 'umi';
-import styles from './index.less';
+import './index.less';
 export default function IndexPage() {
   useEffect(() => {
     let goto =
@@ -9,9 +9,9 @@ export default function IndexPage() {
       var QRLoginObj = window.QRLogin({
         id: 'qrcode',
         goto: goto,
-        width: '500',
-        height: '500',
-        style: 'width:500px;height:600px', //可选的，二维码html标签的style属性
+        width: '260',
+        height: '260',
+        style: 'width:260px;height:260px', //可选的，二维码html标签的style属性
       });
       const handleMessage = function (event) {
         console.log('event', event);
@@ -47,7 +47,7 @@ export default function IndexPage() {
 
   return (
     <div>
-      <h1 className={styles.title}>Page index</h1>
+      <h1 className={'title'}>Page index</h1>
       <div id="qrcode"></div>
       <button
         onClick={() => {
