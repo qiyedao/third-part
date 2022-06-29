@@ -1,35 +1,11 @@
 import { useEffect } from 'react';
 import { history } from 'umi';
-import './index.less';
+import styles from './index.less';
 export default function IndexPage() {
   useEffect(() => {
-    let goto =
-      'https://passport.feishu.cn/suite/passport/oauth/authorize?client_id=cli_a2cfb4be7e7fd00d&redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Flogin&state=RANDOMSTATE&response_type=code&state=STATE';
     if (!window.location.search) {
-      var QRLoginObj = window.QRLogin({
-        id: 'qrcode',
-        goto: goto,
-        width: '260',
-        height: '260',
-        style: 'width:260px;height:260px', //可选的，二维码html标签的style属性
-      });
-      const handleMessage = function (event) {
-        console.log('event', event);
-
-        var origin = event.origin;
-        // 使用 matchOrigin 方法来判断 message 来自页面的url是否合法
-        if (QRLoginObj.matchOrigin(origin)) {
-          var loginTmpCode = event.data;
-
-          // 在授权页面地址上拼接上参数 tmp_code，并跳转
-          window.location.href = `${goto}&tmp_code=${loginTmpCode}`;
-        }
-      };
-      if (typeof window.addEventListener != 'undefined') {
-        window.addEventListener('message', handleMessage, false);
-      } else if (typeof window.attachEvent != 'undefined') {
-        window.attachEvent('onmessage', handleMessage);
-      }
+      window.location.href =
+        'https://open.feishu.cn/open-apis/authen/v1/user_auth_page_beta?app_id=cli_a2cfb4be7e7fd00d&redirect_uri=http%3A%2F%2F192.168.3.73%3A8000%2Flogin&state=RANDOMSTATE';
     } else {
       let search = window.location.search.substring(1);
       let arr = search.split('&');
@@ -41,13 +17,19 @@ export default function IndexPage() {
       console.log(obj, 'obj');
 
       localStorage.userInfo = obj.code;
-      window.location.href = '/';
+      history.push('/');
     }
   }, []);
-
   return (
     <div>
-      <div id="qrcode"></div>
+      <h1 className={styles.title}>Page index</h1>
+      <button
+        onClick={() => {
+          history.push('/detail' + window.location.search);
+        }}
+      >
+        push
+      </button>
     </div>
   );
 }
